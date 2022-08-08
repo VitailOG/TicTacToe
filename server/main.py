@@ -1,27 +1,17 @@
 import socketio
 
-from socketio import AsyncNamespace
+from typing import Type, TypeAlias
+
+from game.namespace import TestNamespace
+from game.server import sio
+
+T: TypeAlias = Type[socketio.Server]
 
 
-class TestNamespace(AsyncNamespace):
-
-    async def on_connect(self, sid, environ, auth):
-        pass
-
-    async def on_disconnect(self, sid):
-        pass
-
-
-def get_application():
-    sio = socketio.AsyncServer(
-        async_mode="asgi",
-        cors_allowed_origins='*'
-    )
-    
-    app = socketio.ASGIApp(sio)
+def get_application(s: T) -> socketio.ASGIApp:
+    application = socketio.ASGIApp(s)
     sio.register_namespace(TestNamespace('/'))
-    app.sio = sio
-    return app
+    return application
 
 
-app = get_application()
+app = get_application(sio)
