@@ -8,12 +8,16 @@ import { Game } from "../types";
 
 const { Text } = Typography;
 
-const Item: FC<Game> = ({id, creator}) => {
+interface IPropsGame extends Game{
+    idx: number
+}
+
+const Item: FC<IPropsGame> = ({idx, id, players}) => {
     return (
         <>
-            <Link to={String(id)}>
+            <Link to={id}>
                 <Typography.Text>
-                    <Text keyboard>{id}</Text> {creator}
+                    <Text keyboard>{idx + 1}</Text> {players && players[0].name}
                 </Typography.Text>
             </Link>
         </>
