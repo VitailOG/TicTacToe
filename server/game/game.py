@@ -38,9 +38,6 @@ class GameManager:
     def _gen_figure(figure: Figure):
         return Figure.X.value if figure == Figure.O.value else Figure.O.value
 
-    def add_player_to_game(self):
-        pass
-
     @staticmethod
     def present_to_dict(item: list[ItemType] | ItemType):
         if is_dataclass(item):
